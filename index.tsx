@@ -7,6 +7,7 @@ import CategoriesAddEdit from './CategoriesAddEdit';
 import Checkoutfields from './Checkoutfields';
 import Countries from './Countries';
 import Comments from './Comments';
+import Contactform from './Contactform';
 import './bootstrap.css';
 import './style.css';
 
@@ -26,7 +27,7 @@ class App extends Component<AppProps, AppState> {
   render() {
     return (
       <div>
-        <Comments />
+        <Contactform />
       </div>
     );
   }
