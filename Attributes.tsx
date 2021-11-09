@@ -10,8 +10,6 @@ class Attributes extends Info {
   }
 
   render() {
-  
-
     return (
       <div class="col-md-12">
         <div class="card">
