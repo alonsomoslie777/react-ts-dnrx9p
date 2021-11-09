@@ -6,7 +6,10 @@ class Checkoutfields extends Info {
     super(props);
     this.state = {
       lang: 'en',
-      listLanguages: ['en', 'it', 'ro'],
+      listLanguages: ['en', 'it'],
+      fields: JSON.parse(
+        '{"title":"Shipping Address","name":"First Name","lastname":"Last Name","email":"Email","phone":"Phone","country":"Country","address":"Address","address2":"Address 2","zip":"Zip / Postal Code","city":"City","county":"County","state":"State","company_name":"Company name","fax":"Fax","order_notes":"Order notes"}'
+      ),
     };
   }
 
@@ -33,22 +36,17 @@ class Checkoutfields extends Info {
                 <tbody>
                   <tr>
                     <td></td>
-                    <td id="edit_title" style={{ verticalAlign: 'middle' }}>
-                      <div
-                        class="edit_text"
-                        style={{
-                          display: 'inline-table',
-                          fontWeight: 'bold',
-                          fontSize: '20px',
-                        }}
-                      >
-                        title
-                      </div>
-                      <div class="hide_edit blockMultilang">
+                    <td
+                      id="edit_title"
+                      style={{ verticalAlign: 'middle' }}
+                      colspan="2"
+                    >
+                      <div class="blockMultilang">
+                        <label>{this.l('Header')} </label>
                         <br />
                         {this.state.listLanguages.map((lang) => (
                           <>
-                            <span class="inputLang"> </span>
+                            <span class="inputLang"> {lang} </span>
                             <input
                               type="text"
                               class="form-control show_edit"
@@ -58,108 +56,105 @@ class Checkoutfields extends Info {
                         ))}
                       </div>
                     </td>
-                    <td> </td>
-                    <td> </td>
-                    <td> </td>
-                    <td> </td>
-                    <td style={{ verticalAlign: 'middle' }}>
-                      <a href="#" class="fa_edit">
-                        {' '}
-                      </a>
-                    </td>
+                    <td colspan="3"></td>
                   </tr>
-
-                  <tr class="options_each enabled_option">
-                    <td style={{ verticalAlign: 'middle' }}>
-                      <label class="switch show_edit">
-                        <input
-                          type="checkbox"
-                          class="checkbox show_edit"
-                          name="key[enable]"
-                          value="yes"
-                        />
-                        <span class="slider round"></span>
-                      </label>
-                    </td>
-                    <td style={{ verticalAlign: 'middle' }}>
-                      <div
-                        class="edit_text"
-                        style={{ display: 'inline-table' }}
-                      >
-                        title
-                      </div>
-                      <label class="hide_edit blockMultilang">
-                        title <br />
-                        {this.state.listLanguages.map((lang) => (
-                          <>
-                            <span class="inputLang">{lang} </span>
-                            <input
-                              type="text"
-                              class="form-control show_edit"
-                              name={'key[title][' + lang + ']'}
-                            />
-                          </>
-                        ))}
-                      </label>
-                    </td>
-                    <td style={{ verticalAlign: 'middle' }}>
-                      <label class="show_edit">{this.l('Show title')}</label>
-                      <br />
-                      <label class="switch show_edit">
-                        <input
-                          type="checkbox"
-                          class="checkbox show_edit"
-                          name={'key[showTitle]'}
-                          value="yes"
-                        />
-                        <span class="slider round"></span>
-                      </label>
-                    </td>
-                    <td style={{ verticalAlign: 'middle' }}>
-                      <label class="show_edit">{this.l('Required')}</label>
-                      <br />
-                      <label class="switch show_edit">
-                        <input
-                          type="checkbox"
-                          class="checkbox show_edit"
-                          name={'key[required]'}
-                          value="yes"
-                        />
-                        <span class="slider round"></span>
-                      </label>
-                    </td>
-                    <td style={{ verticalAlign: 'middle' }}>
-                      <div class="edit_text"> {this.l('Field width')} </div>
-                      <label class="hide_edit hide_edit">
-                        {this.l('Field width')} <br />
-                        <select
-                          name={'key[boxLength]'}
-                          class="form-control show_edit"
+                  {Object.entries(this.state.fields).map(([key, value], i) => (
+                    <>
+                      {key == 'title' ? (
+                        <></>
+                      ) : (
+                        <tr
+                          id={'edit_' + key}
+                          class="options_each enabled_option"
                         >
-                          <option value="half">{this.l('Half')}</option>
-                          <option value="full">{this.l('Full')}</option>
-                        </select>
-                      </label>
-                    </td>
-                    <td style={{ verticalAlign: 'middle' }}>
-                      <div class="edit_text"> {this.l('Field Type Box')} </div>
-                      <label class="hide_edit hide_edit">
-                        {this.l('Field Type Box')} <br />
-                        <select
-                          name={'key[boxType]'}
-                          class="form-control show_edit"
-                        >
-                          <option value="textbox">{this.l('Textbox')}</option>
-                          <option value="textarea">{this.l('Textarea')}</option>
-                        </select>
-                      </label>
-                    </td>
-                    <td style={{ verticalAlign: 'middle' }}>
-                      <a href="#" class="fa_edit">
-                        {' '}
-                      </a>
-                    </td>
-                  </tr>
+                          <td style={{ verticalAlign: 'middle' }}>
+                            <label class="switch show_edit">
+                              <input
+                                type="checkbox"
+                                class="checkbox show_edit"
+                                name={key + '[enable]'}
+                                value="yes"
+                              />
+                              <span class="slider round"></span>
+                            </label>
+                          </td>
+                          <td style={{ verticalAlign: 'middle' }}>
+                            <label class=" blockMultilang">
+                              {value} <br />
+                              {this.state.listLanguages.map((lang) => (
+                                <>
+                                  <span class="inputLang">{lang} </span>
+                                  <input
+                                    type="text"
+                                    class="form-control show_edit"
+                                    name={'key[title][' + lang + ']'}
+                                  />
+                                </>
+                              ))}
+                            </label>
+                          </td>
+                          <td style={{ verticalAlign: 'middle' }}>
+                            <label class="show_edit">
+                              {this.l('Show title')}
+                            </label>
+                            <br />
+                            <label class="switch show_edit">
+                              <input
+                                type="checkbox"
+                                class="checkbox show_edit"
+                                name={'key[showTitle]'}
+                                value="yes"
+                              />
+                              <span class="slider round"></span>
+                            </label>
+                          </td>
+                          <td style={{ verticalAlign: 'middle' }}>
+                            <label class="show_edit">
+                              {this.l('Required')}
+                            </label>
+                            <br />
+                            <label class="switch show_edit">
+                              <input
+                                type="checkbox"
+                                class="checkbox show_edit"
+                                name={'key[required]'}
+                                value="yes"
+                              />
+                              <span class="slider round"></span>
+                            </label>
+                          </td>
+                          <td style={{ verticalAlign: 'middle' }}>
+                            <label>
+                              {this.l('Field width')} <br />
+                              <select
+                                name={'key[boxLength]'}
+                                class="form-control show_edit"
+                              >
+                                <option value="half">{this.l('Half')}</option>
+                                <option value="full">{this.l('Full')}</option>
+                              </select>
+                            </label>
+                          </td>
+                          <td style={{ verticalAlign: 'middle' }}>
+                            <label>
+                              {this.l('Field Type Box')} <br />
+                              <select
+                                name={'key[boxType]'}
+                                class="form-control show_edit"
+                              >
+                                <option value="textbox">
+                                  {this.l('Textbox')}
+                                </option>
+                                <option value="textarea">
+                                  {this.l('Textarea')}
+                                </option>
+                              </select>
+                            </label>
+                          </td>
+                        </tr>
+                      )}
+                    </>
+                  ))}
                 </tbody>
               </table>
             </div>
