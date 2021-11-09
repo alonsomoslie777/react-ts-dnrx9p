@@ -5,7 +5,7 @@ import Attributes from './Attributes';
 import Categories from './Categories';
 import CategoriesAddEdit from './CategoriesAddEdit';
 import Checkoutfields from './Checkoutfields';
-
+import Countries from './Countries';
 import './bootstrap.css';
 import './style.css';
 
@@ -25,7 +25,7 @@ class App extends Component<AppProps, AppState> {
   render() {
     return (
       <div>
-        <Checkoutfields />
+        <Countries />
       </div>
     );
   }
